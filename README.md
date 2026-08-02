@@ -1,70 +1,165 @@
+# 🪄 AI PPTX Presentation Generator
 
-## 🔗 Live Demo
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Open_App-brightgreen?style=for-the-badge)](https://ai-slide-generator.onrender.com)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Groq](https://img.shields.io/badge/AI-Groq_Llama_3.3-orange?style=for-the-badge&logo=openai&logoColor=white)](https://groq.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-[🚀 Open Live App](https://ai-slide-generator.onrender.com)
+An intelligent, full-stack application that automatically generates complete, publication-ready PowerPoint (`.pptx`) presentations from a simple topic prompt. Powered by **Groq LLM (Llama 3.3 70B)** for structured slide generation, **SerpAPI / Unsplash** for contextual image extraction, and **python-pptx** for automated slide layout rendering.
 
+---
 
+## 📸 Interface Preview
 
-AI-Powered PPTX Presentation Generator
+![AI PPTX Generator Web App](preview.png)
 
-Groq + SerpAPI + Unsplash + python-pptx + Tkinter
+---
 
-This project automatically generates complete, professional PowerPoint presentations using:
+## ✨ Features
 
-Groq LLM for content
+- **🧠 Groq LLM Content Generation (`Llama-3.3-70B-Versatile`)**
+  - Generates highly structured, professional, and concise slide titles and bullet points.
+  - Ensures formal business tone without fluff or conversational filler.
+- **🖼️ Contextual Image Fetching**
+  - Primary search via **SerpAPI** (Google Images) for highly accurate image selection.
+  - Smart fallback to **Unsplash** when primary image search is limited.
+  - Automatic scaling, right-hand alignment, and strict boundary checks to avoid text overlap.
+- **🎨 Automated Layout & Styling**
+  - Custom base template support (`theme0.pptx`).
+  - Formatted Title slide, main body slides, and automatic closing "Thank You" slide.
+  - Intelligent title duplication removal and text box width management.
+- **🌐 Dual Interface Support**
+  - **Modern Web Interface**: Clean, glassmorphic UI built with React & Flask.
+  - **Desktop GUI**: Quick offline utility built with Python Tkinter (`ui.py`).
+  - **REST API**: Directly integrate presentation generation into external backend pipelines.
 
-SerpAPI + Unsplash for images
+---
 
-python-pptx for slide rendering
+## 🛠️ Tech Stack
 
-Tkinter for a simple desktop UI
+| Domain | Technologies |
+| :--- | :--- |
+| **Backend & Core Engine** | Python 3.9+, Flask, `python-pptx`, Flask-CORS |
+| **AI Models & Crawlers** | Groq API (`llama-3.3-70b-versatile`), SerpAPI, Unsplash API, iCrawler |
+| **Frontend** | React, Tailwind / Vanilla CSS, Glassmorphic UI Design |
+| **Desktop App** | Python Tkinter |
 
-A beginner-friendly interface that lets anyone create PPTs in seconds — perfect for students, teachers, startups, and demos.
+---
 
-✨ Features
-1️⃣ AI-Generated Slide Content
+## 📁 Repository Structure
 
-Uses Groq LLM (Llama-3.3-70B Versatile)
+```text
+AI_PPTX_Generator/
+├── apis/
+│   ├── base_generation_api.py   # Abstract base class for generation APIs
+│   └── groq_api.py               # Groq LLM integration & prompt structuring
+├── crawlers/
+│   ├── icrawlercrawler.py        # Local image scraper helper
+│   └── serpapi_image.py          # Google Images crawler via SerpAPI
+├── static_site/                  # Production build of the web frontend
+├── generate_ppt.py              # Main core orchestration script
+├── server.py                     # Flask Web Server & REST API endpoint
+├── ui.py                         # Tkinter Desktop GUI
+├── utils.py                      # Image processing & helper functions
+├── theme0.pptx                   # Base presentation master template
+├── preview.png                   # Web app preview screenshot
+└── requirements.txt              # Python dependency manifest
+```
 
-Produces expert-style bullet points
+---
 
-No childish language
+## 🚀 Getting Started
 
-Structured, formal, business-ready content
+### 1. Prerequisites
 
-2️⃣ Automatic Image Insertion
+- Python 3.9 or higher
+- [Groq API Key](https://console.groq.com) *(Free tier available)*
+- *(Optional)* [SerpAPI Key](https://serpapi.com) for image search
 
-Fetches images via SerpAPI (Google Images)
+### 2. Installation
 
-Falls back to Unsplash when needed
+Clone the repository and install the dependencies:
 
-Automatically scales images
+```bash
+git clone https://github.com/samith-debug/AI_PPTX_Generator.git
+cd AI_PPTX_Generator
 
-Always places image on the right side
+# Install Python requirements
+pip install -r requirements.txt
+```
 
-Prevents overlap with text
+---
 
-3️⃣ Clean Slide Design
+## 💻 Usage Options
 
-Uses theme0.pptx as base template
+### Option A: Running the Web App (Recommended)
 
-Correct title slide layout
+Start the Flask server which serves both the frontend web app and API:
 
-Auto-adds final “Thank You” slide
+```bash
+python server.py
+```
 
-Avoids duplicate titles
+Open your browser and navigate to: `http://localhost:5000`
 
-Adjusted text widths for readability
+### Option B: Running the Desktop App (Tkinter)
 
-4️⃣ Simple Tkinter GUI
+For a native desktop experience without web dependencies:
 
-Enter topic, number of slides, and API key
+```bash
+python ui.py
+```
 
-Click Generate
+### Option C: Python Script / CLI
 
-PPT is created automatically and saved
+Generate presentations programmatically via Python:
 
-No manual editing required.
+```python
+from generate_ppt import generate_ppt_api
 
- 
- 
+file_path = generate_ppt_api(
+    topic="Artificial Intelligence in Healthcare",
+    api_name="groq",
+    model_name="llama-3.3-70b-versatile",
+    num_slides=7,
+    api_key="YOUR_GROQ_API_KEY",
+    serp_api_key="YOUR_SERP_API_KEY"  # Optional
+)
+
+print(f"Presentation saved to: {file_path}")
+```
+
+---
+
+## 🔌 API Endpoint Reference
+
+### `POST /api/generate`
+
+Generates and downloads a `.pptx` presentation file.
+
+#### Request Body (`JSON` or `Form Data`)
+
+| Parameter | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `topic` | `string` | **Yes** | Subject/Topic of the presentation |
+| `groq_api_key` | `string` | **Yes** | Your Groq API key |
+| `serp_api_key` | `string` | No | Your SerpAPI key for Google Images |
+| `slides` | `integer` | No | Number of slides (1 - 15, default: `7`) |
+
+#### Response
+
+- **Status 200**: Direct file download (`application/vnd.openxmlformats-officedocument.presentationml.presentation`)
+- **Status 400/500**: `JSON` response containing `{"error": "Error description"}`
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!  
+Feel free to check out the [issues page](https://github.com/samith-debug/AI_PPTX_Generator/issues).
+
+---
+
+## 📜 License
+
+This project is open-source under the [MIT License](LICENSE).
