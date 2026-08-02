@@ -1,0 +1,66 @@
+AI-Powered PPTX Presentation Generator
+Groq + SerpAPI + Unsplash + python-pptx + Tkinter
+
+This project automatically generates complete, professional PowerPoint presentations using Groq’s LLM, real-time image fetching (SerpAPI + Unsplash), and python-pptx slide rendering.
+A simple Tkinter GUI makes it easy for anyone to create PPTs instantly.
+
+Features
+1. AI-Generated Slide Content
+
+Uses Groq LLM (llama-3.3-70b-versatile)
+
+Produces expert-level bullet points
+
+No childish or unprofessional tone
+
+Structured and business-ready content
+
+2. Automatic Image Insertion
+
+Fetches relevant images via SerpAPI (Google Images)
+
+Falls back to Unsplash if needed
+
+Auto-scales images
+
+Always positions image on the right
+
+Ensures no overlap with text
+
+3. Clean Slide Design
+
+Uses theme0.pptx as base template
+
+Title slide always correct
+
+Final “Thank You” slide is auto-added
+
+Removes duplicated slide titles
+
+Adjusted text width for readability
+
+4. Tkinter GUI for Easy Use
+
+Enter topic, number of slides, model, and API key
+
+Click one button → PPT is generated in seconds
+
+
+##################. PROJECT STRUCTURE #############################
+
+
+PPTX-Generator-Groq/
+│── apis/
+│     └── groq_api.py
+│
+│── crawlers/
+│     ├── serpapi_image.py
+│     └── unsplash.py
+│
+│── generated_ppts/
+│── utils.py
+│── generate_ppt.py
+│── ui.py
+│── theme0.pptx
+│── config.json
+│── README.md

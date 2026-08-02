@@ -1,0 +1,8 @@
+flask
+gunicorn
+Pillow
+python-pptx
+requests
+serpapi
+flask-cors
+groq
