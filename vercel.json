@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/static_site/assets/$1"
+    },
+    {
+      "src": "/favicon.ico",
+      "dest": "/static_site/favicon.ico"
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "/static_site/robots.txt"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.py"
+    }
+  ]
+}

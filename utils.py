@@ -1,13 +1,14 @@
 import json
 import os
 
-CONFIG_PATH = "config.json"
+# Use /tmp on Vercel (read-only fs), fallback to local for development
+CONFIG_PATH = "/tmp/config.json" if os.environ.get("VERCEL") else "config.json"
 
 DEFAULT_CONFIG = {
     "api_key": "",
     "groq_key": "",
     "serpapi_key": "",
-    "save_location": "generated_presentations"
+    "save_location": "/tmp/generated_presentations"
 }
 
 def load_config():
