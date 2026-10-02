@@ -5,9 +5,12 @@ import re
 
 from generate_ppt import generate_ppt_api
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_DIR = os.path.join(BASE_DIR, "static_site")
+
 app = Flask(
     __name__,
-    static_folder="static_site",
+    static_folder=STATIC_DIR,
     static_url_path=""
 )
 
@@ -42,12 +45,15 @@ def health():
 # -------------------------------
 @app.route("/")
 def serve_frontend():
-    return send_from_directory("static_site", "index.html")
+    return send_from_directory(STATIC_DIR, "index.html")
 
 
 @app.route("/<path:path>")
 def serve_static_files(path):
-    return send_from_directory("static_site", path)
+    file_path = os.path.join(STATIC_DIR, path)
+    if os.path.exists(file_path):
+        return send_from_directory(STATIC_DIR, path)
+    return send_from_directory(STATIC_DIR, "index.html")
 
 
 # -------------------------------
