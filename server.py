@@ -76,7 +76,7 @@ def generate():
         if not topic or not groq_key:
             return jsonify({"error": "Missing topic or API key"}), 400
 
-        model_name = "llama-3.3-70b-versatile"
+        model_name = None  # Auto-detect best available model
 
         # --- Create presentation ---
         file_path = generate_ppt_api(
@@ -104,5 +104,5 @@ def generate():
 
 if __name__ == "__main__":
     # Debug mode only for development
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5001))
     app.run(host="0.0.0.0", port=port)

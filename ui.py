@@ -65,7 +65,7 @@ topic_entry.pack()
 tk.Label(window, text="Model").pack()
 model_entry = tk.Entry(window, width=40)
 model_entry.pack()
-model_entry.insert(0, "llama-3.3-70b-versatile")
+model_entry.insert(0, "qwen/qwen3.6-27b")
 
 tk.Label(window, text="Number of Slides").pack()
 slide_entry = tk.Entry(window, width=20)
